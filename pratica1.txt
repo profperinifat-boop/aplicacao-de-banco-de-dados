@@ -1,0 +1,56 @@
+create database papelaria;
+show tables;
+use papelaria;
+create table Produtos (
+id int auto_increment primary key,
+nome varchar(100) not null,
+preco decimal(10,2),
+estoque int not null
+);
+alter table Produtos
+add column descricao varchar(100) not null;
+describe Produtos;
+alter table Produtos 
+modify column nome varchar(150) not null;
+alter table Produtos 
+modify column estoque numeric(5) not null;
+create table Vendas (
+id int auto_increment primary key,
+id_produto int,
+quantidade int,
+data_venda date,
+foreign key (id_produto) references Produtos(id)
+);
+describe vendas;
+create table Fornecedores (
+id int auto_increment primary key,
+nome varchar(100),
+telefone varchar(20)
+);
+show tables;
+insert into Produtos (nome, preco, estoque)
+values ('Livro', 50.00, 200);
+select * from produtos;
+insert into Produtos (nome, preco, estoque)
+values ('Caderno', 10, 100),
+('Lápis',1.50,300);
+select * from produtos;
+insert into Vendas (id_produto, quantidade, data_venda) values
+(1, 5, '2025-08-13'),
+(2, 5, '2025-08-13');
+select * from vendas;
+
+insert into Vendas (id_produto, quantidade, data_venda) values
+(1, 10, '2025-08-12');
+
+insert into Fornecedores (nome, telefone) values
+('Editora Ática', '(11) 91234-3456'),
+('Fábrica de Lápis','(11) 2345-6543');
+
+select * from fornecedores;
+describe fornecedores;
+
+select vendas.id, produtos.nome, 
+vendas.quantidade, produtos.preco, 
+vendas.quantidade*produtos.preco "Total"  from 
+produtos join vendas on (produtos.id=vendas.id_produto);
